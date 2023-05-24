@@ -1,0 +1,52 @@
+﻿
+
+// DB Script
+
+/****** Object:  Table [dbo].[Employee]    Script Date: 24-05-2023 16:03:57 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Employee](
+	[EmployeeID] [int] NOT NULL,
+	[FirstName] [nvarchar](200) NOT NULL,
+	[LastName] [nvarchar](200) NOT NULL,
+	[Email] [nvarchar](100) NOT NULL,
+	[PhoneNumber] [nvarchar](max) NULL,
+	[DOJ] [date] NOT NULL,
+	[SalaryPerMonth] [int] NULL
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TaxDetails]    Script Date: 24-05-2023 16:03:57 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TaxDetails](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[FinancialYear] [nvarchar](50) NOT NULL,
+	[TaxSlab] [nvarchar](100) NOT NULL,
+	[TaxRate] [int] NULL,
+ CONSTRAINT [PK_Id_TaxDetails] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+
+Employee Values
+
+1000	Ravikumar	Narayanam	Ravikumar.Narayanam@gmail.com	9100962829	2022-05-16	100000
+1010	Charandeep	Narayanam	Charandeep.Narayanam@gmail.com	9100962829	2022-04-01	200000
+1030	Satyanarayana	Narayanam	Satyanarayana.Narayanam@gmail.com	9191919191	2022-06-01	300000
+1040	Madhavi	G	madhavi.g@gmail.com	9393939393	2022-08-10	250000
+1050	Nitya	N	nitya.n@gmail.com	99999999	2022-10-23	450000
+
+Tax Details 
+
+1	2022-2023	<=250000	0
+2	2022-2023	>250000 and <=500000	5
+3	2022-2023	>500000 and <=1000000	10
+4	2022-2023	>1000000	20

@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+ <style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+</style>
+    <title>Employee List</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function getEmployeeTaxDetailsById() 
+        {
+   // var apiUrl = '@Url.Action("GetAllEmployees", "Employee")'; // Replace with your API endpoint details
+
+   var empid = document.getElementById('txtempid').value;
+    var apiUrl = 'https://localhost:7107/api/TaxDetails/GetTaxDetailsByEId/'+empid
+            $.ajax({
+                url: apiUrl,
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                  
+                     //$("#myTable tr").remove(); 
+
+                         var tableBody = document.querySelector('#myTable tbody');
+
+                          //for (var i = 0; i < response.length; i++) {
+                            var item = response;
+                            var row = document.createElement('tr');
+                            row.innerHTML = '<td>' + item.employeeId + '</td>' +
+                                            '<td>' + item.firstName + '</td>' +
+                                            '<td>' + item.lastName + '</td>' +
+                                            '<td>' + item.email + '</td>' +
+                                            '<td>' + item.doj + '</td>' +
+                                            '<td>' + item.annualSalary + '</td>' +
+                                            '<td>' + item.totalTax + '</td>' +
+                                            '<td>' + item.cessAmount + '</td>';
+                            tableBody.appendChild(row);
+                          
+
+                          document.getElementById('divtbl').style.visibility = 'visible';
+
+
+
+                },
+                error: function (xhr, status, error) {
+                    // Handle API call failure
+                    console.log('Error:', error);
+                }
+            });
+
+        }
+    </script>
+</head>
+<body>
+       <p> <a href="/Pages/InsertEmployee.html">Insert</a> </p>
+       <p> <a href="/Pages/EmployeeDetailsById.html"> GetBy Id</a> </p>
+        <p> <a href="/Pages/EmployeeDetails.html">GetAll</a></p>
+         <p> <a href="/Pages/EmpTaxDetails.html">GetEmployeeTax Details</a></p>
+               
+   
+    <h1>Get Employee Details by Emp Id</h1>
+    
+    <br/>
+    <br/>
+    <div id="result">
+
+       <p> Enter Employee Id : <input type="text" id="txtempid" /> <button onclick="getEmployeeTaxDetailsById()">Get Employee Tax Details By Id</button> </p>
+
+    </div>
+    <div id='divtbl' style="visibility:visible">
+    <table id="myTable">
+  <thead>
+    <tr>
+      <th>Employee ID</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>DOJ</th>
+      <th>Annual Salary</th>
+      <th>Total Tax</th>
+      <th>CessAmount</th>
+      
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+</div>
+</body>
+</html>
